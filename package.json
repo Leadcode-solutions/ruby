@@ -20,10 +20,12 @@
     "youch-terminal": "^2.1.5"
   },
   "dependencies": {
+    "@adonisjs/attachment-lite": "^1.0.7",
     "@adonisjs/auth": "^8.2.3",
     "@adonisjs/bouncer": "^2.3.0",
     "@adonisjs/core": "^5.9.0",
     "@adonisjs/lucid": "^18.3.0",
+    "@adonisjs/lucid-slugify": "^2.2.1",
     "@adonisjs/repl": "^3.1.11",
     "@adonisjs/shield": "^7.1.0",
     "luxon": "^3.2.1",
