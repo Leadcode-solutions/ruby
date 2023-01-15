@@ -57,6 +57,28 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  public hasRole (identifier: string): boolean {
+    return this.roles.some((role: Role) => role.label === identifier)
+  }
+
+  public hasRoles () {
+    return this.roles.length
+      ? this.roles.some((role: Role) => role.permissions.length)
+      : false
+  }
+
+  public hasPermission (identifier: string): boolean {
+    const permissions: string[] = []
+    this.roles.forEach((role: Role) => {
+      role.permissions.forEach((permission: Permission) => {
+        if (!permissions.includes(permission.key))
+          permissions.push(permission.key)
+      })
+    })
+
+    return permissions.includes(identifier)
+  }
+
   @beforeSave()
   public static async hashPassword (user: User) {
     if (user.$dirty.password && user.password) {
