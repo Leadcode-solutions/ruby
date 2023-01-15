@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, beforeCreate, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import { randomUUID } from 'crypto'
 import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
+import Role from 'Domains/Users/Models/Role'
+import Permission from 'Domains/Users/Models/Permission'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -41,6 +43,11 @@ export default class User extends BaseModel {
   @column()
   public rememberMeToken?: string
 
+  @manyToMany(() => Role)
+  public roles: ManyToMany<typeof Role>
+
+  @manyToMany(() => Permission)
+  public permissions: ManyToMany<typeof Permission>
 
   @column.dateTime({ autoCreate: true, serialize: (value: DateTime | null) => {
       return value ? value.toFormat('yyyy-L-mm') : value
