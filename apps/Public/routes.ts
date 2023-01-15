@@ -4,12 +4,17 @@ Route.group(() => {
   Route.get('/', 'TestController.foo')
 
   Route.group(() => {
-    Route.post('/login', 'AuthController.login')
+    Route.group(() => {
+      Route.post('/', 'AuthController.login')
+
+      Route.get('/:provider', 'SocialAuthController.redirect').as('social-login')
+      Route.get('/:provider/callback', 'SocialAuthController.callback')
+    }).prefix('login')
+
     Route.group(() => {
       Route.get('/me', 'AuthController.me')
       Route.post('/logout', 'AuthController.logout')
-    }).middleware('auth')
+    }).middleware('auth:api')
   }).prefix('authentication')
 
 }).namespace('App/Public/Controllers')
-  .domain('api.localhost')

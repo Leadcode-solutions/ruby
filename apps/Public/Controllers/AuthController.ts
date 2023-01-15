@@ -6,10 +6,11 @@ export default class AuthController {
     const password = request.input('password')
 
     try {
-      await auth.use('api').attempt(email, password)
+      const token = await auth.use('api').attempt(email, password)
       response.send({
         message: "Vous vous êtes bien connecté",
-        user: auth.user
+        user: auth.user,
+        token: token
       })
     } catch {
       return response.badRequest('Invalid credentials')
