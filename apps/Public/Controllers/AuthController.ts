@@ -4,6 +4,7 @@ export default class AuthController {
   public async login ({ auth, request, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
+    console.log(email, password)
 
     try {
       const token = await auth.use('api').attempt(email, password)
@@ -17,13 +18,17 @@ export default class AuthController {
     }
   }
 
-  public async logout ({}: HttpContextContract) {}
+  public async logout ({ auth }: HttpContextContract) {
+    await auth.use('api').revoke()
+
+    return {
+      revoked: true
+    }
+  }
 
   public async me ({ auth }: HttpContextContract) {
     const user = auth.user
 
-    return {
-      user: user
-    }
+    return user
   }
 }

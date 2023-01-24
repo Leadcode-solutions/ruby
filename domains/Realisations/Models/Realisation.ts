@@ -37,7 +37,7 @@ export default class Realisation extends BaseModel {
 
   @column()
   public isPin: boolean
-  
+
   @manyToMany(() => Image)
   public images: ManyToMany<typeof Image>
 
@@ -53,5 +53,4 @@ export default class Realisation extends BaseModel {
   public static async generateUuid (model: Realisation) {
     model.id = randomUUID()
   }
-
 }
