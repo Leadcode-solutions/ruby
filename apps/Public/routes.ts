@@ -1,8 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/', 'TestController.foo')
-
   Route.group(() => {
     Route.group(() => {
       Route.post('/', 'AuthController.login')
@@ -16,5 +14,4 @@ Route.group(() => {
       Route.post('/logout', 'AuthController.logout')
     }).middleware('auth:api')
   }).prefix('authentication')
-
-}).namespace('App/Public/Controllers')
+}).namespace('App/Public/Controllers').prefix('v1')

@@ -47,6 +47,7 @@ const databaseConfig: DatabaseConfig = {
       migrations: {
         naturalSort: true,
         paths: [
+          join(process.cwd(), 'domains', 'Shared', 'Migrations'),
           join(process.cwd(), 'domains', 'Users', 'Migrations'),
           join(process.cwd(), 'domains', 'Realisations', 'Migrations')
         ]
