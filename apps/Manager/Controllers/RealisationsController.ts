@@ -2,7 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Realisation from 'Domains/Realisations/Models/Realisation'
 import { RealisationStoreValidator, RealisationUpdateValidator } from 'App/Manager/Validators/RealisationValidator'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
-import {MultipartFileContract} from '@ioc:Adonis/Core/BodyParser'
+import { MultipartFileContract } from '@ioc:Adonis/Core/BodyParser'
 import Image from 'Domains/Shared/Models/Image'
 
 export default class RealisationsController {
@@ -62,26 +62,20 @@ export default class RealisationsController {
     const data = await request.validate(RealisationUpdateValidator)
     const images = request.files('images')
     const realisation = await Realisation.findByOrFail('slug', params.id)
-
+    await realisation.load('images')
 
     await realisation.merge(data).save()
+    await realisation.related('images').detach()
     if (images.length) {
       for (const image of images) {
-        console.log(image)
-        const item = await Image.create({
+        const item = await Image.firstOrCreate({
           picture: Attachment.fromFile(image)
         })
 
-        /*const imageData = await Image.firstOrCreate({
-          picture: Attachment.fromFile(image).name
-        })*/
+        await realisation.related('images').create(item)
       }
     }
-    //
-
     return realisation
-
-
   }
 
   /**
@@ -97,7 +91,8 @@ export default class RealisationsController {
     await realisation.delete()
 
     return response.ok({
-      message: 'Ressource deleted'
+      message: 'Realisation was been deleted',
+      realisation
     })
   }
 }
