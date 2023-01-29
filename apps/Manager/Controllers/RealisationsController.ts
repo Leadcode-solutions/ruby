@@ -12,18 +12,19 @@ export default class RealisationsController {
    */
   public async index({ bouncer }: HttpContextContract) {
     await bouncer.with('RealisationPolicy').authorize('view')
-    return Realisation.query()
+    return Realisation.query().preload('images')
   }
 
   /**
-   * From a slug retrieve a Realisation
+   * From a id retrieve a Realisation
    * @param params
    * @param bouncer
    */
   public async show({ params, bouncer }: HttpContextContract) {
     await bouncer.with('RealisationPolicy').authorize('view')
     return Realisation.query()
-      .where('slug', params.id)
+      .where('id', params.id)
+      .preload('images')
       .first()
   }
 
