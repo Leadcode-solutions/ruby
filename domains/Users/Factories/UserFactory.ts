@@ -6,7 +6,7 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
     username: faker.name.fullName(),
     email: faker.internet.email(),
     password: faker.internet.password(10),
-    isAdmin: faker.datatype.boolean(),
+    isAdmin: false,
     hasEmailConfirmed: faker.datatype.boolean(),
     isLocked: faker.datatype.boolean(),
   }
