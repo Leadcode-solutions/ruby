@@ -1,11 +1,9 @@
 import Route from '@ioc:Adonis/Core/Route'
-import pkg from '../../package.json'
 
 Route.group(() => {
 
   Route.get('/', () => ({
     uptime: process.uptime(),
-    version: pkg.version,
   }))
 
   Route.group(() => {
