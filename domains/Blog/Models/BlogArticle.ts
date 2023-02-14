@@ -7,7 +7,7 @@ export default class BlogArticle extends BaseModel {
   public id: number
 
   @column()
-  public categoryId: number
+  public blogCategoryId: number
 
   @column()
   public label: string
