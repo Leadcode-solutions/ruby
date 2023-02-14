@@ -4,6 +4,7 @@ Route.group(() => {
 
   Route.get('/', () => ({
     uptime: process.uptime(),
+    version: process.env.npm_package_version,
   }))
 
   Route.group(() => {
