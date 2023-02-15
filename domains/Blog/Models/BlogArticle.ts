@@ -35,12 +35,12 @@ export default class BlogArticle extends BaseModel {
   @afterFetch()
   public static serializeRecoveryAllStructure (articles: BlogArticle[]) {
     articles.forEach((article: BlogArticle) => {
-      article.structure = JSON.parse(article.structure)
+      article.structure = JSON.parse(JSON.stringify(article.structure))
     })
   }
 
   @afterFind()
   public static serializeRecoveryOneStructure (article: BlogArticle) {
-    article.structure = JSON.parse(article.structure)
+    article.structure = JSON.parse(JSON.stringify(article.structure))
   }
 }
