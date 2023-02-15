@@ -7,7 +7,7 @@ export default class BlogArticleValidator {
   public schema = schema.create({
     label: schema.string({ trim: true }),
     description: schema.string({ trim: true }),
-    structure: schema.object().anyMembers(),
+    structure: schema.array().anyMembers(),
     category_id: schema.number.optional([rules.exists({ table: 'blog_categories', column: 'id' })])
   })
 
