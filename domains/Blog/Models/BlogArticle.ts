@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { afterFetch, BaseModel, beforeSave, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { afterFetch, afterFind, BaseModel, beforeSave, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import BlogCategory from 'Domains/Blog/Models/BlogCategory'
 
 export default class BlogArticle extends BaseModel {
@@ -39,7 +39,7 @@ export default class BlogArticle extends BaseModel {
     })
   }
 
-  @afterFetch()
+  @afterFind()
   public static serializeRecoveryOneStructure (article: BlogArticle) {
     article.structure = JSON.parse(article.structure)
   }
