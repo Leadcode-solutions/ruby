@@ -10,7 +10,7 @@ export default class BlogArticleController {
 
   public async show ({ bouncer, params }: HttpContextContract) {
     await bouncer.with('BlogArticlePolicy').authorize('view')
-    return BlogArticle.query().where('id', params.id).preload('category')
+    return BlogArticle.query().where('id', params.id).preload('category').first()
   }
 
   public async store ({ bouncer, request }: HttpContextContract) {
