@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { afterFetch, BaseModel, beforeSave, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import BlogCategory from 'Domains/Blog/Models/BlogCategory'
 
 export default class BlogArticle extends BaseModel {
@@ -16,7 +16,7 @@ export default class BlogArticle extends BaseModel {
   public description: string
 
   @column()
-  public structure: Object
+  public structure: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -26,4 +26,21 @@ export default class BlogArticle extends BaseModel {
 
   @belongsTo(() => BlogCategory)
   public category: BelongsTo<typeof BlogCategory>
+
+  @beforeSave()
+  public static serializeInsertedStructure (article: BlogArticle) {
+    article.structure = JSON.stringify(article.structure)
+  }
+
+  @afterFetch()
+  public static serializeRecoveryAllStructure (articles: BlogArticle[]) {
+    articles.forEach((article: BlogArticle) => {
+      article.structure = JSON.parse(article.structure)
+    })
+  }
+
+  @afterFetch()
+  public static serializeRecoveryOneStructure (article: BlogArticle) {
+    article.structure = JSON.parse(article.structure)
+  }
 }
