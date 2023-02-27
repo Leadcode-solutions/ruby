@@ -5,13 +5,13 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.text('icon')
+      table.text('icon').alter()
     })
   }
 
   public async down () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.string('icon')
+      table.string('icon').alter()
     })
   }
 }
