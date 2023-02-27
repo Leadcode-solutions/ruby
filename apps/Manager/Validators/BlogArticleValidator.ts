@@ -8,7 +8,7 @@ export default class BlogArticleValidator {
     label: schema.string({ trim: true }, [rules.maxLength(255)]),
     description: schema.string({ trim: true }, [rules.maxLength(255)]),
     structure: schema.array().anyMembers(),
-    category_id: schema.number.optional([rules.exists({ table: 'blog_categories', column: 'id' })])
+    blog_category_id: schema.number.optional([rules.exists({ table: 'blog_categories', column: 'id' })])
   })
 
   public messages: CustomMessages = {}
