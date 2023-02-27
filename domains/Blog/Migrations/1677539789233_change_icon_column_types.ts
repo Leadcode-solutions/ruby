@@ -5,14 +5,12 @@ export default class extends BaseSchema {
 
   public async up () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumn('icon')
       table.text('icon')
     })
   }
 
   public async down () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumn('icon')
       table.string('icon')
     })
   }
