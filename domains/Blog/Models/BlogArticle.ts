@@ -18,6 +18,12 @@ export default class BlogArticle extends BaseModel {
   @column()
   public structure: string
 
+  @column()
+  public image: string
+
+  @column()
+  public publishedAt: DateTime
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
