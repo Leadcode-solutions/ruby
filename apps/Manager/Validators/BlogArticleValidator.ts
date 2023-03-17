@@ -5,10 +5,10 @@ export default class BlogArticleValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    label: schema.string({ trim: true }, [rules.maxLength(255)]),
-    description: schema.string({ trim: true }, [rules.maxLength(255)]),
+    label: schema.string.optional({ trim: true }, [rules.maxLength(255)]),
+    description: schema.string.optional({ trim: true }, [rules.maxLength(255)]),
     structure: schema.array().anyMembers(),
-    image: schema.string({ trim: true }),
+    image: schema.string.nullableAndOptional({ trim: true }),
     published_at: schema.date.nullableAndOptional(),
     blog_category_id: schema.number.optional([rules.exists({ table: 'blog_categories', column: 'id' })])
   })
