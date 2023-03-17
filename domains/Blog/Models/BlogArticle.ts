@@ -24,6 +24,9 @@ export default class BlogArticle extends BaseModel {
   @column()
   public publishedAt: DateTime
 
+  @column()
+  public isVisible: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
