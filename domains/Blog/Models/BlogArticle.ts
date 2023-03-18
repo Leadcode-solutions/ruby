@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { afterFetch, afterFind, BaseModel, beforeSave, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import BlogCategory from 'Domains/Blog/Models/BlogCategory'
+import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
 
 export default class BlogArticle extends BaseModel {
   @column({ isPrimary: true })
@@ -11,6 +12,15 @@ export default class BlogArticle extends BaseModel {
 
   @column()
   public label: string
+
+  @column()
+  @slugify({
+    fields: ['label'],
+    strategy: 'shortId',
+    allowUpdates: true,
+    maxLength: 255
+  })
+  public slug: string
 
   @column()
   public description: string
