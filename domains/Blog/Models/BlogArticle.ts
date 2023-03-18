@@ -31,7 +31,7 @@ export default class BlogArticle extends BaseModel {
   public draftIsActive: boolean
 
   @column()
-  public draftIsPassword: string
+  public draftPassword: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
