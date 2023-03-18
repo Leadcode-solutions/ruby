@@ -13,6 +13,14 @@ export default class BlogArticleController {
     return BlogArticle.query().where('id', params.id).preload('category').first()
   }
 
+  public async showDraft ({ params }: HttpContextContract) {
+    return BlogArticle.query()
+      .where('id', params.id)
+      .andWhere('password', params.password)
+      .preload('category')
+      .firstOrFail()
+  }
+
   public async store ({ bouncer, request }: HttpContextContract) {
     await bouncer.with('BlogArticlePolicy').authorize('view')
     const data = await request.validate(BlogArticleValidator)

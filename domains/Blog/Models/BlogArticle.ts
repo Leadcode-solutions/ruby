@@ -27,6 +27,12 @@ export default class BlogArticle extends BaseModel {
   @column()
   public isVisible: boolean
 
+  @column()
+  public draftIsActive: boolean
+
+  @column()
+  public draftIsPassword: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

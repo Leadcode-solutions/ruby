@@ -23,7 +23,11 @@ export default class BlogArticleValidator {
     blog_category_id: schema.number.optional([
       rules.exists({ table: 'blog_categories', column: 'id' })
     ]),
-    is_visible: schema.boolean.optional()
+    is_visible: schema.boolean.optional(),
+    draft_is_active: schema.boolean.optional(),
+    draft_password: schema.string.optional({ trim: true }, [
+      rules.maxLength(255),
+    ]),
   })
 
   public messages: CustomMessages = {}
