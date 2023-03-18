@@ -16,7 +16,7 @@ export default class BlogArticle extends BaseModel {
   @column()
   @slugify({
     fields: ['label'],
-    strategy: 'shortId',
+    strategy: 'dbIncrement',
     allowUpdates: true,
     maxLength: 255
   })
